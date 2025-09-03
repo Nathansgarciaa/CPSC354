@@ -1,0 +1,146 @@
+\documentclass{article}
+
+\usepackage{tikz} 
+\usetikzlibrary{automata, positioning, arrows} 
+
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{parskip}
+\usepackage{hyperref}
+  \hypersetup{
+    colorlinks = true,
+    urlcolor = blue,       % color of external links using \href
+    linkcolor= blue,       % color of internal links 
+    citecolor= blue,       % color of links to bibliography
+    filecolor= blue,       % color of file links
+    }
+    
+\usepackage{listings}
+\usepackage[utf8]{inputenc}                                                    
+\usepackage[T1]{fontenc}                                                       
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=haskell,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\newtheoremstyle{theorem}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\itshape\/}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {.}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+\theoremstyle{theorem} 
+   \newtheorem{theorem}{Theorem}[section]
+   \newtheorem{corollary}[theorem]{Corollary}
+   \newtheorem{lemma}[theorem]{Lemma}
+   \newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+   \newtheorem{definition}[theorem]{Definition}
+   \newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}    
+  \newtheorem{remark}[theorem]{Remark}
+
+\title{CPSC-354 Report}
+\author{Nathan Garcia  \\ Chapman University}
+
+\date{\today} 
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+
+\section{Introduction}\label{intro}
+
+\section{Week by Week}\label{homework}
+
+\subsection{Week 1}
+\subsubsection{MU Puzzle}
+
+The MU puzzle comes from the book \textit{Gödel, Escher, Bach}. You start with the string \textbf{MI} and the goal is to turn it into \textbf{MU} by following four rules:
+
+\begin{enumerate}
+    \item If a string ends with \textbf{I}, you can add a \textbf{U} at the end.  
+    \item If a string starts with \textbf{M}, you can copy everything after the M.  
+    \item If you see \textbf{III}, you can change it to \textbf{U}.  
+    \item If you see \textbf{UU}, you can delete it.  
+\end{enumerate}
+
+The puzzle is about seeing if you can reach \textbf{MU} by only using these rules. It is not really about the letters themselves, but about how rules control what strings you can or cannot make.
+\subsubsection{HW1}
+
+The MU puzzle comes from the book \textit{Gödel, Escher, Bach}. You start with the string \textbf{MI} and the goal is to turn it into \textbf{MU} by following four rules:
+
+\begin{enumerate}
+    \item If a string ends with \textbf{I}, you can add a \textbf{U} at the end.  
+    \item If a string starts with \textbf{M}, you can copy everything after the M.  
+    \item If you see \textbf{III}, you can change it to \textbf{U}.  
+    \item If you see \textbf{UU}, you can delete it.  
+\end{enumerate}
+
+At first, I tried small derivations. For example:
+\[
+\texttt{MI} \;\Rightarrow\; \texttt{MIU} \;\Rightarrow\; \texttt{MIUIU}
+\]
+or duplicating I’s:
+\[
+\texttt{MI} \;\Rightarrow\; \texttt{MII} \;\Rightarrow\; \texttt{MIIII}
+\]
+From \texttt{MIIII}, I can replace \texttt{III} with \texttt{U}, giving \texttt{MUI}, but not \texttt{MU}. Every time, an extra \texttt{I} is left over, and there is no rule that deletes a single \texttt{I}.
+
+\paragraph{Invariant Argument.}  
+Let $\#I(w)$ denote the number of \texttt{I}'s in string $w$. If we track $\#I(w) \pmod 3$, we find:
+\begin{itemize}
+    \item Rule 1: $\#I$ unchanged.  
+    \item Rule 2: $\#I$ doubles. Over $\mathbb{Z}/3\mathbb{Z}$, $1 \mapsto 2$, $2 \mapsto 1$, never $0$.  
+    \item Rule 3: Removes $3$ I’s, leaving the remainder mod 3 unchanged.  
+    \item Rule 4: Deletes U’s only, so $\#I$ unchanged.  
+\end{itemize}
+
+We start with \texttt{MI}, which has $\#I=1$. This is congruent to $1 \pmod 3$. Because no rule ever makes $\#I \equiv 0 \pmod 3$, it is impossible to reach a string with $\#I=0$.
+
+\paragraph{Conclusion.}  
+The target \texttt{MU} has $\#I=0$, which is divisible by $3$. Since that is unreachable from \texttt{MI}, the puzzle is unsolvable. As a student, the cool part here is that the solution isn’t about brute-force trying rules—it’s about spotting a hidden invariant (the number of I’s mod 3) that blocks the path completely.
+
+
+
+\section{Essay}
+
+\section{Evidence of Participation}
+
+\section{Conclusion}\label{conclusion}
+
+\begin{thebibliography}{99}
+\bibitem[BLA]{bla} Author, \href{https://en.wikipedia.org/wiki/LaTeX}{Title}, Publisher, Year.
+\end{thebibliography}
+
+\end{document}
