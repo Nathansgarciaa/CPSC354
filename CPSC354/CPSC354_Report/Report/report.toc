@@ -5,6 +5,11 @@
 \contentsline {subsubsection}{\numberline {2.1.2}HW1}{2}{subsubsection.2.1.2}%
 \contentsline {paragraph}{Invariant Argument.}{2}{section*.2}%
 \contentsline {paragraph}{Conclusion.}{2}{section*.3}%
-\contentsline {section}{\numberline {3}Essay}{2}{section.3}%
-\contentsline {section}{\numberline {4}Evidence of Participation}{2}{section.4}%
-\contentsline {section}{\numberline {5}Conclusion}{2}{section.5}%
+\contentsline {subsection}{\numberline {2.2}Week 2}{2}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}HW}{2}{subsubsection.2.2.1}%
+\contentsline {paragraph}{Problem.}{2}{section*.4}%
+\contentsline {subsection}{\numberline {2.3}HW 3}{5}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Exercise 5}{5}{subsubsection.2.3.1}%
+\contentsline {section}{\numberline {3}Essay}{6}{section.3}%
+\contentsline {section}{\numberline {4}Evidence of Participation}{6}{section.4}%
+\contentsline {section}{\numberline {5}Conclusion}{6}{section.5}%

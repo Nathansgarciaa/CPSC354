@@ -1,8 +1,8 @@
-PWD /Users/nathangarcia/Documents/CPSC354/Report
+PWD /Users/nathangarcia/Documents/CPSC354/CPSC354_Report/Report
 INPUT /usr/local/texlive/2024/texmf.cnf
 INPUT /usr/local/texlive/2024/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/nathangarcia/Documents/CPSC354/Report/report.tex
+INPUT /Users/nathangarcia/Documents/CPSC354/CPSC354_Report/Report/report.tex
 OUTPUT report.log
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/article.cls
@@ -217,6 +217,8 @@ INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/booktabs/booktabs.sty
+INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/booktabs/booktabs.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstpatch.sty
@@ -324,6 +326,7 @@ INPUT /usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.e
 INPUT report.aux
 INPUT ./report.out
 INPUT ./report.out
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
