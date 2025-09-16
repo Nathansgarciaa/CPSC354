@@ -260,61 +260,82 @@ Then determine whether each ARS is \emph{terminating}, \emph{confluent}, and whe
 \bottomrule
 \end{tabular}
 \end{center}
-\begin{center}
-\begin{tikzpicture}[->,>=stealth, node distance=2cm]
-\node[circle,draw,minimum size=8mm] (a) {a};
-\node[circle,draw,minimum size=8mm,right of=a] (b) {b};
-\node[circle,draw,minimum size=8mm,right of=b] (c) {c};
-\draw (a) -- (b);
-\draw (b) -- (c);
-\node[below=1cm of b] {ARS \#2};
-\end{tikzpicture}
-\end{center}
+\begin{enumerate}
+  \item \textbf{Confluent: True}, \textbf{Terminating: True}, \textbf{Unique Normal Forms: False}\\
+  % This is not possible
+  \begin{tikzpicture}[->, node distance=2.5cm]
+    \node[state] (a) {a};
+    \node[state, below left=of a] (b1) {b};
+    \node[state, below right=of a] (b2) {b};
+    \node[state, below=2cm of a] (b3) {b};
+    \draw (a) -- (b1);
+    \draw (a) -- (b2);
+    \draw (b1) -- (b3);
+    \draw (b2) -- (b3);
+  \end{tikzpicture}
 
-\begin{center}
-\begin{tikzpicture}[->,>=stealth, node distance=2.5cm]
-\node[circle,draw,minimum size=8mm] (a) {a};
-\node[circle,draw,minimum size=8mm,right of=a] (b) {b};
-\draw (a) edge[bend left] (b);
-\draw (b) edge[bend left] (a);
-\node[below=1cm of a, xshift=1.25cm] {ARS \#3};
-\end{tikzpicture}
-\end{center}
+  \item \textbf{Confluent: True}, \textbf{Terminating: False}, \textbf{Unique Normal Forms: True}\\
+  \begin{tikzpicture}[->, node distance=2cm]
+    \node[state] (a) {a};
+    \node[state, below left=of a] (b1) {b};
+    \node[state, below right=of a] (b2) {b};
+    \node[state, below=2cm of a] (b3) {b};
+    \draw (a) -- (b1);
+    \draw (a) -- (b2);
+    \draw (b1) -- (b3);
+    \draw (b2) -- (b3);
+    \draw (a) edge[loop above] (a);
+  \end{tikzpicture}
 
-\begin{center}
-\begin{tikzpicture}[->,>=stealth, node distance=2.5cm]
-\node[circle,draw,minimum size=8mm] (a) {a};
-\node[circle,draw,minimum size=8mm,above right of=a] (b) {b};
-\node[circle,draw,minimum size=8mm,below right of=a] (c) {c};
-\draw (a) -- (b);
-\draw (a) -- (c);
-\node[below=1.5cm of a, xshift=1.25cm] {ARS \#4};
-\end{tikzpicture}
-\end{center}
+  \item \textbf{Confluent: True}, \textbf{Terminating: False}, \textbf{Unique Normal Forms: False}\\
+  \begin{tikzpicture}[->, node distance=2cm]
+    \node[state] (a) {a};
+    \node[state, below left=of a] (b1) {b};
+    \node[state, below right=of a] (b2) {b};
+    \node[state, below=2cm of a] (b3) {b};
+    \draw (a) -- (b1);
+    \draw (a) -- (b2);
+    \draw (b1) -- (b3);
+    \draw (b2) -- (b3);
+    \draw (a) edge[loop above] (a);
+    \draw (b3) edge[loop above] (b3);
+  \end{tikzpicture}
 
-\begin{center}
-\begin{tikzpicture}[->,>=stealth, node distance=2.5cm]
-\node[circle,draw,minimum size=8mm] (a) {a};
-\node[circle,draw,minimum size=8mm,right of=a] (b) {b};
-\node[circle,draw,minimum size=8mm,right of=b] (c) {c};
-\draw (a) -- (b);
-\draw (b) -- (c);
-\draw (c) edge[bend left] (b);
-\node[below=1cm of b] {ARS \#5};
-\end{tikzpicture}
-\end{center}
+  \item \textbf{Confluent: False}, \textbf{Terminating: True}, \textbf{Unique Normal Forms: True}\\
+  \begin{tikzpicture}[->, node distance=2cm]
+    \node[state] (a) {a};
+    \node[state, below right=of a] (b) {b};
+    \draw (a) -- (b);
+  \end{tikzpicture}
 
-\begin{center}
-\begin{tikzpicture}[->,>=stealth, node distance=2.5cm]
-\node[circle,draw,minimum size=8mm] (a) {a};
-\node[circle,draw,minimum size=8mm,above right of=a] (b) {b};
-\node[circle,draw,minimum size=8mm,below right of=a] (c) {c};
-\draw (a) edge[bend left] (b);
-\draw (b) edge[bend left] (a);
-\draw (a) -- (c);
-\node[below=1.5cm of a, xshift=1.25cm] {ARS \#6};
-\end{tikzpicture}
-\end{center}
+  \item \textbf{Confluent: False}, \textbf{Terminating: True}, \textbf{Unique Normal Forms: False}\\
+  \begin{tikzpicture}[->, node distance=2cm]
+    \node[state] (a) {a};
+    \node[state, below left=of a] (b) {b};
+    \node[state, below right=of a] (c) {c};
+    \draw (a) -- (b);
+    \draw (a) -- (c);
+  \end{tikzpicture}
+
+  \item \textbf{Confluent: False}, \textbf{Terminating: False}, \textbf{Unique Normal Forms: True}\\
+  \begin{tikzpicture}[->, node distance=2cm]
+    \node[state] (a) {a};
+    \node[state, below left=of a] (b) {b};
+    \node[state, below right=of a] (c) {c};
+    \draw (a) -- (b);
+    \draw (a) -- (c);
+    \draw (c) edge[loop above] (c);
+  \end{tikzpicture}
+
+  \item \textbf{Confluent: False}, \textbf{Terminating: False}, \textbf{Unique Normal Forms: False}\\
+  \begin{tikzpicture}[->, node distance=2cm]
+    \node[state] (a) {a};
+    \node[state, below right=of a] (b) {b};
+    \draw (a) -- (b);
+    \draw (a) edge[loop above] (a);
+    \draw (b) edge[loop above] (b);
+  \end{tikzpicture}
+\end{enumerate}
 
 \subsection{HW 3}
 \subsubsection{Exercise 5}
