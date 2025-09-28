@@ -513,6 +513,48 @@ Define
 
 Since $\phi$ maps each call to a natural number that strictly decreases along every recursive edge and is bounded below, there are no infinite descending chains. By well-founded induction on $\phi$, all recursive calls terminate. \qed
 
+\subsection{HW 5}
+\subsubsection*{Workout: Step-by-step $\alpha$/$\beta$-reductions}
+
+\noindent\textbf{Problem.} Evaluate
+\[
+(\lambda f.\,\lambda x.\,f(f\,x))\;(\lambda f.\,\lambda x.\,f(f(f\,x))).
+\]
+
+\noindent\textbf{Notation.}
+We use $\rightsquigarrow_\beta$ for a single $\beta$-reduction step and “$\alpha$” to indicate a capture-avoiding renaming of bound variables.
+
+\noindent\textbf{Intuition.}
+The term $\lambda f.\,\lambda x.\,f(f\,x)$ applies a function twice (\emph{iterate-2}).  
+The term $\lambda f.\,\lambda x.\,f(f(f\,x))$ applies a function three times (\emph{iterate-3}).  
+Applying iterate-2 \emph{to} iterate-3 yields iterate-9.
+
+\noindent\textbf{Derivation.}
+\begin{align*}
+&(\lambda f.\,\lambda x.\,f(f\,x))\;(\lambda f.\,\lambda x.\,f(f(f\,x)))\\[2pt]
+&\rightsquigarrow_\beta\ \lambda x.\, \big[(\lambda f.\,\lambda x.\,f(f(f\,x)))\big((\lambda f.\,\lambda x.\,f(f(f\,x)))\,x\big)\big]
+\quad\text{(substitute $f := \lambda f.\lambda x.\,f(f(f\,x))$ into $\lambda x.\,f(f\,x)$)}\\[4pt]
+&\overset{\alpha}{=}\ \lambda x.\, (\lambda f.\,\lambda y.\,f(f(f\,y)))\Big((\lambda f.\,\lambda u.\,f(f(f\,u)))\,x\Big)
+\quad\text{(rename bound $x$'s to $y,u$ to avoid shadowing)}\\[4pt]
+&\rightsquigarrow_\beta\ \lambda x.\, (\lambda f.\,\lambda y.\,f(f(f\,y)))\big(\lambda u.\,x(x(x\,u))\big)
+\quad\text{(apply $\beta$ to $(\lambda f.\lambda u.\,f(f(f\,u)))\,x$)}\\[4pt]
+&\rightsquigarrow_\beta\ \lambda x.\,\lambda y.\,F\big(F(F\,y)\big)
+\quad\text{with }F:=\lambda u.\,x(x(x\,u))
+\quad\text{(apply $(\lambda f.\lambda y.\,f(f(f\,y)))\,F$)}\\[4pt]
+&=\ \lambda x.\,\lambda y.\,F\Big(F\big(F\,y\big)\Big)\\[2pt]
+&=\ \lambda x.\,\lambda y.\,F\Big(F\big(x(x(x\,y))\big)\Big)
+\quad\text{(since $F\,y = x(x(x\,y))$)}\\[2pt]
+&=\ \lambda x.\,\lambda y.\,F\Big(x\big(x\big(x\big(x(x(x\,y))\big)\big)\big)\Big)
+\quad\text{(apply $F$ again; adds $3$ more $x$'s: total $6$)}\\[2pt]
+&=\ \lambda x.\,\lambda y.\,x\big(x\big(x\big(x\big(x\big(x\big(x\big(x\big(x\,y\big)\big)\big)\big)\big)\big)\big)\big)
+\quad\text{(apply $F$ a third time; +3 more: total $9$)}.
+\end{align*}
+
+\noindent\textbf{Normal form.}
+\[
+\boxed{\ \lambda x.\,\lambda y.\,\underbrace{x(x(x(x(x(x(x(x(x\,y))))))))}_{\text{$9$ applications of }x}\ }
+\]
+So the result is the \emph{iterate-9} operator: given $x$ and $y$, it applies $x$ to $y$ nine times.
 
 
 \section{Essay}
