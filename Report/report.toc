@@ -15,6 +15,10 @@
 \contentsline {paragraph}{HW 4.1.}{7}{section*.6}%
 \contentsline {paragraph}{HW 4.2.}{7}{section*.7}%
 \contentsline {subsection}{\numberline {2.5}HW 5}{8}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Essay}{9}{section.3}%
-\contentsline {section}{\numberline {4}Evidence of Participation}{9}{section.4}%
-\contentsline {section}{\numberline {5}Conclusion}{9}{section.5}%
+\contentsline {subsection}{\numberline {2.6}HW 6}{9}{subsection.2.6}%
+\contentsline {subsubsection}{\numberline {2.6.1}Computing $\mathrm {fact}\,3$ via a Fixed Point Combinator}{9}{subsubsection.2.6.1}%
+\contentsline {paragraph}{Abbreviation.}{9}{section*.9}%
+\contentsline {paragraph}{Goal.}{9}{section*.10}%
+\contentsline {section}{\numberline {3}Essay}{10}{section.3}%
+\contentsline {section}{\numberline {4}Evidence of Participation}{10}{section.4}%
+\contentsline {section}{\numberline {5}Conclusion}{10}{section.5}%

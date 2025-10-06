@@ -556,6 +556,100 @@ Applying iterate-2 \emph{to} iterate-3 yields iterate-9.
 \]
 So the result is the \emph{iterate-9} operator: given $x$ and $y$, it applies $x$ to $y$ nine times.
 
+\subsection{HW 6}
+\subsubsection{Computing \texorpdfstring{$\mathrm{fact}\,3$}{fact 3} via a Fixed Point Combinator}
+
+We use the computation rules
+\[
+\begin{aligned}
+&\mathtt{fix}\ F \;\to\; (F\ (\mathtt{fix}\ F)) && \text{(fix)}\\
+&\mathtt{let}\ x = e_1\ \mathtt{in}\ e_2 \;\to\; ((\lambda x.\, e_2)\ e_1) && \text{(let)}\\
+&\mathtt{let\ rec}\ f = e_1\ \mathtt{in}\ e_2 \;\to\; \mathtt{let}\ f = (\mathtt{fix}\ (\lambda f.\, e_1))\ \mathtt{in}\ e_2 && \text{(let rec)}
+\end{aligned}
+\]
+and the usual \(\beta\)-reduction \(((\lambda x.\,e)\ v) \to e[x:=v]\), plus base computation rules
+\[
+0=0\to \mathtt{True},\quad n{>}0 \Rightarrow (n=0)\to \mathtt{False},\quad
+\mathtt{if}\ \mathtt{True}\ \mathtt{then}\ A\ \mathtt{else}\ B \to A,\quad
+\mathtt{if}\ \mathtt{False}\ \mathtt{then}\ A\ \mathtt{else}\ B \to B.
+\]
+
+\paragraph{Abbreviation.}
+Let
+\[
+F \;\equiv\; \lambda f.\,\lambda n.\,
+\mathtt{if}\ (n=0)\ \mathtt{then}\ 1\ \mathtt{else}\ n * f(n-1).
+\]
+Then \(\mathtt{fact} \equiv \mathtt{fix}\ F\).
+
+\paragraph{Goal.}
+Evaluate
+\[
+\mathtt{let\ rec}\ \mathtt{fact} = \lambda n.\,\mathtt{if}\ (n=0)\ \mathtt{then}\ 1\ \mathtt{else}\ n * \mathtt{fact}(n-1)\ \mathtt{in}\ \mathtt{fact}\ 3.
+\]
+
+\begin{align*}
+&\mathtt{let\ rec}\ \mathtt{fact}=\lambda n.\,\dots\ \mathtt{in}\ \mathtt{fact}\ 3\\
+{}\to\;& \mathtt{let}\ \mathtt{fact}=(\mathtt{fix}\ (\lambda f.\,\lambda n.\,\dots))\ \mathtt{in}\ \mathtt{fact}\ 3
+&&\text{(let rec)}\\
+{}\to\;& ((\lambda \mathtt{fact}.\, \mathtt{fact}\ 3)\ (\mathtt{fix}\ F))
+&&\text{(let)}\\
+{}\to\;& (\mathtt{fix}\ F)\ 3
+&&\text{(\(\beta\))}\\[4pt]
+{}\to\;& (F\ (\mathtt{fix}\ F))\ 3
+&&\text{(fix)}\\
+{}\to\;& ((\lambda f.\,\lambda n.\,\mathtt{if}\ (n=0)\ \mathtt{then}\ 1\ \mathtt{else}\ n * f(n-1))\ (\mathtt{fix}\ F))\ 3
+&&\text{(def.\ of \(F\))}\\
+{}\to\;& (\lambda n.\,\mathtt{if}\ (n=0)\ \mathtt{then}\ 1\ \mathtt{else}\ n * (\mathtt{fix}\ F)(n-1))\ 3
+&&\text{(\(\beta\))}\\
+{}\to\;& \mathtt{if}\ (3=0)\ \mathtt{then}\ 1\ \mathtt{else}\ 3 * (\mathtt{fix}\ F)(2)
+&&\text{(\(\beta\))}\\
+{}\to\;& 3 * (\mathtt{fix}\ F)(2)
+&&\text{(arith.\ and if-False)}
+\end{align*}
+
+Now expand \((\mathtt{fix}\ F)\ 2\):
+\begin{align*}
+(\mathtt{fix}\ F)2
+&\to (F(\mathtt{fix}\ F))2 &&\text{(fix)}\\
+&\to \mathtt{if}\ (2=0)\ \mathtt{then}\ 1\ \mathtt{else}\ 2 * (\mathtt{fix}\ F)(1)
+&&\text{(def.\ \(F\), \(\beta\))}\\
+&\to 2 * (\mathtt{fix}\ F)(1)
+&&\text{(if-False)}
+\end{align*}
+
+Expand \((\mathtt{fix}\ F)1\):
+\begin{align*}
+(\mathtt{fix}\ F)1
+&\to (F(\mathtt{fix}\ F))1 &&\text{(fix)}\\
+&\to \mathtt{if}\ (1=0)\ \mathtt{then}\ 1\ \mathtt{else}\ 1 * (\mathtt{fix}\ F)(0)
+&&\text{(def.\ \(F\), \(\beta\))}\\
+&\to 1 * (\mathtt{fix}\ F)(0)
+&&\text{(if-False)}
+\end{align*}
+
+Expand \((\mathtt{fix}\ F)0\):
+\begin{align*}
+(\mathtt{fix}\ F)0
+&\to (F(\mathtt{fix}\ F))0 &&\text{(fix)}\\
+&\to \mathtt{if}\ (0=0)\ \mathtt{then}\ 1\ \mathtt{else}\ 0 * (\mathtt{fix}\ F)(-1)
+&&\text{(def.\ \(F\), \(\beta\))}\\
+&\to 1
+&&\text{(if-True)}
+\end{align*}
+
+Unwinding:
+\[
+1 * (\mathtt{fix}\ F)0 \to 1 * 1 \to 1,\qquad
+2 * (\mathtt{fix}\ F)1 \to 2 * 1 \to 2,\qquad
+3 * (\mathtt{fix}\ F)2 \to 3 * 2 \to 6.
+\]
+
+\[
+\boxed{\ \mathtt{fact}\ 3 \;\to^{\!*}\; 6\ }
+\]
+
+
 
 \section{Essay}
 
