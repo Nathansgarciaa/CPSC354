@@ -1,7 +1,7 @@
 \documentclass{article}
 
 \usepackage{tikz} 
-\usetikzlibrary{automata, positioning, arrows} 
+\usetikzlibrary{automata, positioning, arrows, trees} 
 
 \usepackage{amsthm}
 \usepackage{amsfonts}
@@ -24,7 +24,9 @@
     
 \usepackage{listings}
 \usepackage[utf8]{inputenc}                                                    
-\usepackage[T1]{fontenc}                                                       
+\usepackage[T1]{fontenc}
+\usepackage{newunicodechar}
+\newunicodechar{ℕ}{\ensuremath{\mathbb{N}}}                                                       
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -87,7 +89,7 @@
 \section{Week by Week}\label{homework}
 
 \subsection{Week 1}
-\subsubsection{MU Puzzle}
+\subsubsection{HW 1 - MU Puzzle}
 
 The MU puzzle comes from the book \textit{Gödel, Escher, Bach}. You start with the string \textbf{MI} and the goal is to turn it into \textbf{MU} by following four rules:
 
@@ -135,7 +137,7 @@ We start with \texttt{MI}, which has $\#I=1$. This is congruent to $1 \pmod 3$. 
 The target \texttt{MU} has $\#I=0$, which is divisible by $3$. Since that is unreachable from \texttt{MI}, the puzzle is unsolvable. As a student, the cool part here is that the solution isn’t about brute-force trying rules—it’s about spotting a hidden invariant (the number of I’s mod 3) that blocks the path completely.
 
 \subsection{Week 2}
-\subsubsection{HW}
+\subsubsection{HW2 - Abstract Rewriting Systems (ARS) Properties}
 
 \paragraph{Problem.}
 Consider the following list of Abstract Rewriting Systems (ARSs).
@@ -337,8 +339,8 @@ Then determine whether each ARS is \emph{terminating}, \emph{confluent}, and whe
   \end{tikzpicture}
 \end{enumerate}
 
-\subsection{HW 3}
-\subsubsection{Exercise 5}
+\subsection{Week 3}
+\subsubsection{HW 3 - Exercise 5: Reduction}
 \textbf{Exercise 5.}
 
 \textit{Rules:}
@@ -437,8 +439,8 @@ This terminates and yields unique normal forms.
 \textit{Specification:} The algorithm computes whether the input contains at least one $a$, ignoring all $b$’s.
 
 \subsection{Week 4}
-\subsubsection{hw4}
-\subsubsection*{HW 4, PL 2025, Termination}
+\subsubsection{HW4 - Termination}
+
 For the definition of a \emph{measure function}, see our notes on rewriting and, in particular, on termination.
 
 \paragraph{HW 4.1.}
@@ -514,7 +516,8 @@ Define
 Since $\phi$ maps each call to a natural number that strictly decreases along every recursive edge and is bounded below, there are no infinite descending chains. By well-founded induction on $\phi$, all recursive calls terminate. \qed
 
 \subsection{HW 5}
-\subsubsection*{Workout: Step-by-step $\alpha$/$\beta$-reductions}
+
+\subsubsection{Workout: Step-by-step $\alpha$/$\beta$-reductions}
 
 \noindent\textbf{Problem.} Evaluate
 \[
@@ -650,6 +653,314 @@ Unwinding:
 \]
 
 
+\subsection{Week 7}
+\subsubsection{HW7 - Parse Trees for Arithmetic Expressions}
+
+\textbf{Using the context-free grammar:}
+
+\begin{verbatim}
+Exp  -> Exp '+' Exp1
+Exp1 -> Exp1 '*' Exp2
+Exp2 -> Integer
+Exp2 -> '(' Exp ')'
+Exp  -> Exp1
+Exp1 -> Exp2
+\end{verbatim}
+
+Write out the derivation trees (parse trees) for the following strings:
+
+2+1,  1+2*3,  1+(2*3),  (1+2)*3,  1+2*3+4*5+6
+
+---
+
+\paragraph{1. Parse tree for 2 + 1}
+
+\begin{center}
+\begin{tikzpicture}[level distance=1.2cm, sibling distance=2cm]
+\node {Exp}
+  child {node {Exp}
+    child {node {Exp1}
+      child {node {Exp2}
+        child {node {Integer (2)}}}}}
+  child {node {$+$}}
+  child {node {Exp1}
+    child {node {Exp2}
+      child {node {Integer (1)}}}};
+\end{tikzpicture}
+\end{center}
+
+---
+
+\paragraph{2. Parse tree for 1 + 2 * 3}
+
+\begin{center}
+\begin{tikzpicture}[level distance=1.2cm, sibling distance=1.8cm]
+\node {Exp}
+  child {node {Exp}
+    child {node {Exp1}
+      child {node {Exp2}
+        child {node {Integer (1)}}}}}
+  child {node {$+$}}
+  child {node {Exp1}
+    child {node {Exp1}
+      child {node {Exp2}
+        child {node {Integer (2)}}}}
+    child {node {$*$}}
+    child {node {Exp2}
+      child {node {Integer (3)}}}};
+\end{tikzpicture}
+\end{center}
+
+---
+
+\paragraph{3. Parse tree for 1 + (2 * 3)}
+
+\begin{center}
+\begin{tikzpicture}[level distance=1.0cm, sibling distance=1.5cm]
+\node {Exp}
+  child {node {Exp}
+    child {node {Exp1}
+      child {node {Exp2}
+        child {node {Integer (1)}}}}}
+  child {node {$+$}}
+  child {node {Exp1}
+    child {node {Exp2}
+      child {node {$($}}
+      child {node {Exp}
+        child {node {Exp1}
+          child {node {Exp1}
+            child {node {Exp2}
+              child {node {Integer (2)}}}}
+          child {node {$*$}}
+          child {node {Exp2}
+            child {node {Integer (3)}}}}}
+      child {node {$)$}}}};
+\end{tikzpicture}
+\end{center}
+
+---
+
+\paragraph{4. Parse tree for (1 + 2) * 3}
+
+\begin{center}
+\begin{tikzpicture}[level distance=1.0cm, sibling distance=1.5cm]
+\node {Exp1}
+  child {node {Exp1}
+    child {node {Exp2}
+      child {node {$($}}
+      child {node {Exp}
+        child {node {Exp}
+          child {node {Exp1}
+            child {node {Exp2}
+              child {node {Integer (1)}}}}}
+        child {node {$+$}}
+        child {node {Exp1}
+          child {node {Exp2}
+            child {node {Integer (2)}}}}}
+      child {node {$)$}}}}
+  child {node {$*$}}
+  child {node {Exp2}
+    child {node {Integer (3)}}};
+\end{tikzpicture}
+\end{center}
+
+---
+
+\paragraph{5. Parse tree for 1 + 2 * 3 + 4 * 5 + 6}
+
+\begin{center}
+\begin{tikzpicture}[level distance=0.7cm, sibling distance=0.8cm, 
+                    every node/.style={font=\tiny}]
+\node {Exp}
+  child {node {Exp}
+    child {node {Exp}
+      child {node {Exp1}
+        child {node {Exp2}
+          child {node {1}}}}}
+    child {node {$+$}}
+    child {node {Exp1}
+      child {node {Exp1}
+        child {node {Exp2}
+          child {node {2}}}}
+      child {node {$*$}}
+      child {node {Exp2}
+        child {node {3}}}}}
+  child {node {$+$}}
+  child {node {Exp1}
+    child {node {Exp1}
+      child {node {Exp1}
+        child {node {Exp2}
+          child {node {4}}}}
+      child {node {$*$}}
+      child {node {Exp2}
+        child {node {5}}}}
+    child {node {$+$}}
+    child {node {Exp1}
+      child {node {Exp2}
+        child {node {6}}}}};
+\end{tikzpicture}
+\end{center}
+
+---
+
+\paragraph{5. Parse tree for 1 + 2 * 3 + 4 * 5 + 6}
+
+\begin{center}
+\begin{tikzpicture}[level distance=0.7cm, sibling distance=0.8cm, 
+                    every node/.style={font=\tiny}]
+\node {Exp}
+  child {node {Exp}
+    child {node {Exp}
+      child {node {Exp1}
+        child {node {Exp2}
+          child {node {1}}}}}
+    child {node {+}}
+    child {node {Exp1}
+      child {node {Exp1}
+        child {node {Exp2}
+          child {node {2}}}}
+      child {node {*}}
+      child {node {Exp2}
+        child {node {3}}}}}
+  child {node {+}}
+  child {node {Exp1}
+    child {node {Exp1}
+      child {node {Exp1}
+        child {node {Exp2}
+          child {node {4}}}}
+      child {node {*}}
+      child {node {Exp2}
+        child {node {5}}}}
+    child {node {+}}
+    child {node {Exp1}
+      child {node {Exp2}
+        child {node {6}}}}};
+\end{tikzpicture}
+\end{center}
+
+---
+
+\noindent\textbf{Notes:}
+\begin{itemize}
+  \item Each derivation strictly follows the grammar rules.
+  \item Multiplication has higher precedence than addition, as enforced by the separation of \texttt{Exp} and \texttt{Exp1}.
+  \item Parentheses in examples (3) and (4) override default precedence by forcing evaluation order.
+\end{itemize}
+
+\subsection{Week 7}
+\subsubsection{HW 8 Natural Numbers Game}
+\textbf{Problem: 5}
+
+Prove that
+\[
+a + (b + 0) + (c + 0) = a + b + c
+\]
+for all natural numbers \(a, b, c \in \mathbb{N}\).
+
+\medskip
+\textbf{Solution in Lean:}
+
+\begin{verbatim}
+example (a b c : ℕ) : a + (b + 0) + (c + 0) = a + b + c := by
+  rw [add_zero]
+  rw [add_zero]
+  rfl
+\end{verbatim}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item The lemma \texttt{add\_zero} states that \(x + 0 = x\) for any natural number \(x\).
+    \item The first \texttt{rw [add\_zero]} simplifies \(b + 0\) to \(b\).
+    \item The second \texttt{rw [add\_zero]} simplifies \(c + 0\) to \(c\).
+    \item Finally, \texttt{rfl} (reflexivity) completes the proof since both sides are identical.
+\end{itemize}
+\textbf{Proof.}
+On the natural numbers, addition is defined so that $x+0=x$ for every $x$
+(the identity law for $0$), and the rest of addition is built recursively.
+Applying the identity law with $x=b$ gives $b+0=b$, and with $x=c$ gives
+$c+0=c$. Substituting these equalities into the left-hand side yields
+\[
+a + (b+0) + (c+0) = a + b + c.
+\]
+Both sides are now the same expression, so the equality holds. \qed
+
+
+\textbf{Problem: 6}
+
+Prove that
+\[
+a + (b + 0) + (c + 0) = a + b + c
+\]
+for all natural numbers \(a, b, c \in \mathbb{N}\), but this time tell Lean to simplify the \(c + 0\) term first.
+
+\medskip
+\textbf{Solution}
+
+\begin{verbatim}
+example (a b c : ℕ) : a + (b + 0) + (c + 0) = a + b + c := by
+  rw [add_zero c]
+  rw [add_zero b]
+  rfl
+\end{verbatim}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item The lemma \texttt{add\_zero x} proves that \(x + 0 = x\).
+    \item Writing \texttt{rw [add\_zero c]} explicitly tells Lean to apply this lemma to the term \(c + 0\) first.
+    \item Then \texttt{rw [add\_zero b]} simplifies \(b + 0\) to \(b\).
+    \item Finally, \texttt{rfl} completes the proof since both sides are identical.
+\end{itemize}
+
+\textbf{Result:} The equality holds, and the proof demonstrates how to use precision rewriting in Lean.
+
+
+\textbf{Problem. 7}  
+Prove that for all natural numbers \( n \),
+\[
+\mathrm{succ}(n) = n + 1.
+\]
+
+\medskip
+\textbf{Lean solution:}
+\begin{verbatim}
+theorem succ_eq_add_one (n : ℕ) : succ n = n + 1 := by
+  rw [one_eq_succ_zero]
+  rw [add_succ]
+  rw [add_zero]
+  rfl
+\end{verbatim}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item We begin by rewriting \(1\) as \(\mathrm{succ}(0)\) using \texttt{one\_eq\_succ\_zero}.
+    \item Next, we apply \texttt{add\_succ} to expand \(n + \mathrm{succ}(0)\) into \(\mathrm{succ}(n + 0)\).
+    \item Then, the lemma \texttt{add\_zero} simplifies \(n + 0\) to \(n\).
+    \item Finally, \texttt{rfl} (reflexivity) confirms that both sides are equal, proving that \(\mathrm{succ}(n) = n + 1\).
+\end{itemize}
+
+\textbf{Problem 8:}  
+Prove that
+\[
+2 + 2 = 4.
+\]
+
+\medskip
+\textbf{Lean solution:}
+\begin{verbatim}
+example : 2 + 2 = 4 := by
+  rw [two_eq_succ_one]
+  rw [add_succ]
+  rw [add_one_eq_succ]
+  rfl
+\end{verbatim}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item We first rewrite \(2\) as \(\mathrm{succ}(1)\) using \texttt{two\_eq\_succ\_one}.
+    \item Then \texttt{add\_succ} expands the addition: \(2 + 2 = \mathrm{succ}(1 + 1)\).
+    \item Next, \texttt{add\_one\_eq\_succ} converts \(1 + 1\) into \(\mathrm{succ}(1)\).
+    \item Finally, \texttt{rfl} (reflexivity) confirms both sides are equal, completing the proof that \(2 + 2 = 4\).
+\end{itemize}
 
 \section{Essay}
 

@@ -1,24 +1,35 @@
-\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
-\contentsline {section}{\numberline {2}Week by Week}{1}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Week 1}{1}{subsection.2.1}%
-\contentsline {subsubsection}{\numberline {2.1.1}MU Puzzle}{1}{subsubsection.2.1.1}%
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Week by Week}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Week 1}{2}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}HW 1 - MU Puzzle}{2}{subsubsection.2.1.1}%
 \contentsline {subsubsection}{\numberline {2.1.2}HW1}{2}{subsubsection.2.1.2}%
 \contentsline {paragraph}{Invariant Argument.}{2}{section*.2}%
-\contentsline {paragraph}{Conclusion.}{2}{section*.3}%
-\contentsline {subsection}{\numberline {2.2}Week 2}{2}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}HW}{2}{subsubsection.2.2.1}%
-\contentsline {paragraph}{Problem.}{2}{section*.4}%
-\contentsline {subsection}{\numberline {2.3}HW 3}{5}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Exercise 5}{5}{subsubsection.2.3.1}%
+\contentsline {paragraph}{Conclusion.}{3}{section*.3}%
+\contentsline {subsection}{\numberline {2.2}Week 2}{3}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}HW2 - Abstract Rewriting Systems (ARS) Properties}{3}{subsubsection.2.2.1}%
+\contentsline {paragraph}{Problem.}{3}{section*.4}%
+\contentsline {subsection}{\numberline {2.3}Week 3}{6}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}HW 3 - Exercise 5: Reduction}{6}{subsubsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.4}Week 4}{7}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}hw4}{7}{subsubsection.2.4.1}%
-\contentsline {paragraph}{HW 4.1.}{7}{section*.6}%
-\contentsline {paragraph}{HW 4.2.}{7}{section*.7}%
+\contentsline {subsubsection}{\numberline {2.4.1}HW4 - Termination}{7}{subsubsection.2.4.1}%
+\contentsline {paragraph}{HW 4.1.}{7}{section*.5}%
+\contentsline {paragraph}{HW 4.2.}{8}{section*.6}%
 \contentsline {subsection}{\numberline {2.5}HW 5}{8}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1}Workout: Step-by-step $\alpha $/$\beta $-reductions}{8}{subsubsection.2.5.1}%
 \contentsline {subsection}{\numberline {2.6}HW 6}{9}{subsection.2.6}%
 \contentsline {subsubsection}{\numberline {2.6.1}Computing $\mathrm {fact}\,3$ via a Fixed Point Combinator}{9}{subsubsection.2.6.1}%
-\contentsline {paragraph}{Abbreviation.}{9}{section*.9}%
-\contentsline {paragraph}{Goal.}{9}{section*.10}%
-\contentsline {section}{\numberline {3}Essay}{10}{section.3}%
-\contentsline {section}{\numberline {4}Evidence of Participation}{10}{section.4}%
-\contentsline {section}{\numberline {5}Conclusion}{10}{section.5}%
+\contentsline {paragraph}{Abbreviation.}{9}{section*.7}%
+\contentsline {paragraph}{Goal.}{9}{section*.8}%
+\contentsline {subsection}{\numberline {2.7}Week 7}{10}{subsection.2.7}%
+\contentsline {subsubsection}{\numberline {2.7.1}HW7 - Parse Trees for Arithmetic Expressions}{10}{subsubsection.2.7.1}%
+\contentsline {paragraph}{1. Parse tree for 2 + 1}{11}{section*.9}%
+\contentsline {paragraph}{2. Parse tree for 1 + 2 * 3}{11}{section*.10}%
+\contentsline {paragraph}{3. Parse tree for 1 + (2 * 3)}{11}{section*.11}%
+\contentsline {paragraph}{4. Parse tree for (1 + 2) * 3}{12}{section*.12}%
+\contentsline {paragraph}{5. Parse tree for 1 + 2 * 3 + 4 * 5 + 6}{12}{section*.13}%
+\contentsline {paragraph}{5. Parse tree for 1 + 2 * 3 + 4 * 5 + 6}{13}{section*.14}%
+\contentsline {subsection}{\numberline {2.8}Week 7}{13}{subsection.2.8}%
+\contentsline {subsubsection}{\numberline {2.8.1}HW 8 Natural Numbers Game}{13}{subsubsection.2.8.1}%
+\contentsline {section}{\numberline {3}Essay}{15}{section.3}%
+\contentsline {section}{\numberline {4}Evidence of Participation}{15}{section.4}%
+\contentsline {section}{\numberline {5}Conclusion}{15}{section.5}%
