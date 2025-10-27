@@ -962,6 +962,83 @@ example : 2 + 2 = 4 := by
     \item Finally, \texttt{rfl} (reflexivity) confirms both sides are equal, completing the proof that \(2 + 2 = 4\).
 \end{itemize}
 
+\subsection{Week9}
+\subsubsection{hw9}
+\subsubsection*{Level 5: \texttt{add\_right\_comm}}
+
+\textbf{Theorem.} For all natural numbers $a, b, c$, we have
+\[
+(a + b) + c = (a + c) + b.
+\]
+This property is known as the \textit{right commutativity of addition}.
+
+\paragraph{Solution 1 (Using Induction).}
+We can prove this by performing induction on one of the variables, for example $c$.
+
+\textbf{Base Case:} Let $c = 0$. Then
+\[
+(a + b) + 0 = a + b = (a + 0) + b,
+\]
+where we use the identity property of addition ($x + 0 = x$ and $0 + x = x$).
+
+\textbf{Inductive Step:}  
+Assume the statement holds for some $c = k$, i.e.
+\[
+(a + b) + k = (a + k) + b.
+\]
+We must show it holds for $c = k + 1$. Then:
+\[
+\begin{aligned}
+(a + b) + (k + 1)
+&= ((a + b) + k) + 1 && \text{(by definition of addition)}\\
+&= ((a + k) + b) + 1 && \text{(by inductive hypothesis)}\\
+&= (a + k) + (b + 1) && \text{(by associativity)}\\
+&= (a + (k + 1)) + b && \text{(by definition of addition)}.
+\end{aligned}
+\]
+Thus, by induction, $(a + b) + c = (a + c) + b$ for all $c \in \mathbb{N}$.
+
+\textbf{Lean-style Inductive Proof:}
+\begin{verbatim}
+theorem add_right_comm (a b c : ℕ) : (a + b) + c = (a + c) + b := by
+  induction c with d hd
+  case zero =>
+    rw [add_zero]
+    rw [add_zero]
+    rfl
+  case succ =>
+    rw [add_succ]
+    rw [hd]
+    rw [add_succ]
+    rfl
+\end{verbatim}
+
+---
+
+\paragraph{Solution 2 (Without Induction).}
+We can also prove $(a + b) + c = (a + c) + b$ \textit{without induction}, by using the results we have already established: the \textbf{associativity} and \textbf{commutativity} of addition.
+
+\textbf{Proof:}
+\[
+\begin{aligned}
+(a + b) + c
+&= a + (b + c) && \text{(by associativity)} \\
+&= a + (c + b) && \text{(by commutativity)} \\
+&= (a + c) + b && \text{(by associativity)}.
+\end{aligned}
+\]
+Hence $(a + b) + c = (a + c) + b$.
+
+\textbf{Lean-style Non-Inductive Proof:}
+\begin{verbatim}
+theorem add_right_comm (a b c : ℕ) : (a + b) + c = (a + c) + b := by
+  rw [add_assoc]
+  rw [add_comm b c]
+  rw [←add_assoc]
+  rfl
+\end{verbatim}
+
+
 \section{Essay}
 
 \section{Evidence of Participation}
