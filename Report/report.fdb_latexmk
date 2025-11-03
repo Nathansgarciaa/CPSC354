@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1761602060.06526 "/Users/nathangarcia/Documents/CPSC354/CPSC354_Report/Report/report.tex" "report.pdf" "report" 1761602061.07419 0
-  "/Users/nathangarcia/Documents/CPSC354/CPSC354_Report/Report/report.tex" 1761602058.77292 32543 341b858cdb5f477743cbddc67fea7364 ""
+["pdflatex"] 1762186659.21605 "/Users/nathangarcia/Documents/CPSC354/CPSC354_Report/Report/report.tex" "report.pdf" "report" 1762186660.13976 0
+  "/Users/nathangarcia/Documents/CPSC354/CPSC354_Report/Report/report.tex" 1762186657.97324 34170 5870ab3365999d52281feca0d498593e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -204,10 +204,10 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1739766300.54542 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1739766268 8221425 dd0841bf84731d35a3747683d4610cad ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "report.aux" 1761602060.97201 4986 5b449472013d35eec10eff396a95452e "pdflatex"
-  "report.out" 1761602060.97268 3448 8dcc8b126bdb139ee46fdfe6bf9185c6 "pdflatex"
-  "report.tex" 1761602058.77292 32543 341b858cdb5f477743cbddc67fea7364 ""
-  "report.toc" 1761602060.97286 3041 2d679841d677895457787de91a15e866 "pdflatex"
+  "report.aux" 1762186660.04408 5227 94e1be9c6e46ba6d90b9855765d46ad9 "pdflatex"
+  "report.out" 1762186660.04473 3635 5edee4181032e507469a3db5cb5965b5 "pdflatex"
+  "report.tex" 1762186657.97324 34170 5870ab3365999d52281feca0d498593e ""
+  "report.toc" 1762186660.04495 3200 bd821195dc128d8cef6f156eeab63c0a "pdflatex"
   (generated)
   "report.aux"
   "report.log"

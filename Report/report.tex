@@ -1038,6 +1038,75 @@ theorem add_right_comm (a b c : ℕ) : (a + b) + c = (a + c) + b := by
   rfl
 \end{verbatim}
 
+\subsection{week 10}
+\subsubsection{hw10}
+\textbf{Problem: 6} Prove that if $C \land D \to S$, then $C \to D \to S$.
+
+\[
+\begin{aligned}
+&\text{Given: } h : (C \land D) \to S \\
+&\text{Goal: } C \to D \to S \\
+&\text{Proof: } \\
+&C \to D \to S \quad \text{is shown by constructing a function:} \\
+&\lambda c\, d.\, h(\langle c, d \rangle)
+\end{aligned}
+\]
+
+\textbf{Solution in Lean:}
+\begin{verbatim}
+exact fun c d => h ⟨c, d⟩
+\end{verbatim}
+
+\textbf{Problem:7} Prove that if $h : C \to D \to S$, then $C \land D \to S$.
+
+\[
+\begin{aligned}
+&\text{Given: } h : C \to D \to S, \\
+&\text{Goal: } C \land D \to S, \\
+&\text{Proof: } \lambda (cd : C \land D).\, h(cd.\text{left})(cd.\text{right})
+\end{aligned}
+\]
+
+\textbf{Solution in Lean:}
+\begin{verbatim}
+exact fun cd => h cd.left cd.right
+\end{verbatim}
+
+\textbf{Problem: 8} Prove that if $(S \to C) \land (S \to D)$, then $S \to (C \land D)$.
+
+\[
+\begin{aligned}
+&\text{Given: } h : (S \to C) \land (S \to D), \\
+&\text{Goal: } S \to (C \land D), \\
+&\text{Proof: } 
+  \lambda s.\, \langle h.\text{left}\, s,\; h.\text{right}\, s\rangle
+\end{aligned}
+\]
+
+\textbf{Solution in Lean:}
+\begin{verbatim}
+exact fun s => ⟨h.left s, h.right s⟩
+\end{verbatim}
+
+\textbf{Problem:9} Prove that if $R$ (Riffin brings a snack), then $(S \to R) \land (\neg S \to R)$.
+
+\[
+\begin{aligned}
+&\text{Given: } R, \\
+&\text{Goal: } (S \to R) \land (\neg S \to R), \\
+&\text{Proof: } 
+  \lambda r.\, \langle\, (\lambda\_s.\, r),\; (\lambda\_{\neg s}.\, r)\,\rangle
+\end{aligned}
+\]
+
+\textbf{Solution in Lean:}
+\begin{verbatim}
+exact fun r => ⟨fun _ => r, fun _ => r⟩
+\end{verbatim}
+
+
+
+
 
 \section{Essay}
 
