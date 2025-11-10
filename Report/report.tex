@@ -1104,6 +1104,112 @@ exact fun s => ⟨h.left s, h.right s⟩
 exact fun r => ⟨fun _ => r, fun _ => r⟩
 \end{verbatim}
 
+\subsection{Week 11}
+\subsubsection{hw11}
+\subsubsection*{Level 9 — Implies a Negation}
+
+\textbf{Given:} 
+\[
+h : P \to \neg A
+\]
+\textbf{Prove:} 
+\[
+\neg (P \land A)
+\]
+
+\textbf{Reasoning:}
+\begin{enumerate}
+  \item Assume $P \land A$ (the opposite of what we want to show).
+  \item From this, we can extract both $P$ and $A$:
+    \[
+    p := \text{fst}(P \land A), \quad a := \text{snd}(P \land A)
+    \]
+  \item Since $h : P \to \neg A$, applying $h$ to $p$ gives $h(p) : \neg A$ (which means $A \to \bot$).
+  \item Applying $h(p)$ to $a$ yields a contradiction ($\bot$).
+  \item Therefore, assuming $P \land A$ leads to $\bot$, so we conclude:
+    \[
+    \neg (P \land A)
+    \]
+\end{enumerate}
+
+\textbf{Lean one-line proof:}
+\[
+\texttt{exact fun hpa => (h hpa.left) hpa.right}
+\]
+
+\subsubsection*{Level 10 — Conjunction Implication}
+
+\textbf{Given:}
+\[
+h : \neg (P \land A)
+\]
+\textbf{Goal:}
+\[
+P \to \neg A
+\]
+
+\textbf{Reasoning:}
+\begin{enumerate}
+  \item Assume $p : P$ (Pippin attends).
+  \item To prove $\neg A$, assume $a : A$ (there is avocado).
+  \item From $p$ and $a$, we get $(p, a) : P \land A$.
+  \item Applying $h$ to this gives a contradiction ($h(p, a) : \bot$).
+  \item Thus $A$ cannot hold when $P$ holds, so $P \to \neg A$.
+\end{enumerate}
+
+\textbf{Lean one-line proof:}
+\[
+\texttt{exact fun p a => h ⟨p, a⟩}
+\]
+
+\subsubsection*{Level 11 — not\_not\_not}
+
+\textbf{Given:}
+\[
+h : \neg \neg \neg A
+\]
+\textbf{Goal:}
+\[
+\neg A
+\]
+
+\textbf{Reasoning:}
+\begin{enumerate}
+  \item To prove $\neg A$, assume $A$.
+  \item Then $A$ implies $\neg \neg A$ is false, because assuming $\neg A$ would contradict $A$.
+  \item Thus, if we define $\lambda na. na(a)$, this represents a contradiction from $\neg A$ and $A$.
+  \item Applying $h$ to this function yields $\bot$, confirming $\neg A$.
+\end{enumerate}
+
+\textbf{Lean one-line proof:}
+\[
+\texttt{exact fun a => h (fun na => na a)}
+\]
+\subsubsection*{Level 12 — ¬Intro Boss}
+
+\textbf{Given:}
+\[
+h : \neg (B \to C)
+\]
+\textbf{Goal:}
+\[
+\neg \neg B
+\]
+
+\textbf{Reasoning:}
+\begin{enumerate}
+  \item To prove $\neg \neg B$, assume $\neg B$ and derive a contradiction.
+  \item From $\neg B$, we can define a function $f : B \to C$ by saying:
+    if we had $b : B$, we could produce any $C$ (since $\neg B$ means $B \to \bot$).
+  \item This constructed function $f$ makes $h(f)$ yield $\bot$, a contradiction.
+  \item Therefore, assuming $\neg B$ leads to $\bot$, so $\neg \neg B$ holds.
+\end{enumerate}
+
+\textbf{Lean one-line proof:}
+\[
+\texttt{exact fun b => h (fun \_ => b)}
+\]
+
 
 
 
