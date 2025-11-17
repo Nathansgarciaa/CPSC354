@@ -38,6 +38,8 @@
 \contentsline {subsubsection}{\numberline {2.10.1}hw10}{16}{subsubsection.2.10.1}%
 \contentsline {subsection}{\numberline {2.11}Week 11}{17}{subsection.2.11}%
 \contentsline {subsubsection}{\numberline {2.11.1}hw11}{17}{subsubsection.2.11.1}%
-\contentsline {section}{\numberline {3}Essay}{19}{section.3}%
-\contentsline {section}{\numberline {4}Evidence of Participation}{19}{section.4}%
-\contentsline {section}{\numberline {5}Conclusion}{19}{section.5}%
+\contentsline {subsection}{\numberline {2.12}week 12}{19}{subsection.2.12}%
+\contentsline {subsubsection}{\numberline {2.12.1}Homework: Towers of Hanoi Execution Notes}{19}{subsubsection.2.12.1}%
+\contentsline {section}{\numberline {3}Essay}{20}{section.3}%
+\contentsline {section}{\numberline {4}Evidence of Participation}{20}{section.4}%
+\contentsline {section}{\numberline {5}Conclusion}{20}{section.5}%

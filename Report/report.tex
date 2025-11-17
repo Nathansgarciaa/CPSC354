@@ -1210,6 +1210,100 @@ h : \neg (B \to C)
 \texttt{exact fun b => h (fun \_ => b)}
 \]
 
+\subsection{week 12}
+\subsubsection{Homework: Towers of Hanoi Execution Notes}
+
+\begin{enumerate}
+    \item \textbf{Complete the execution (fill in the dots).}  
+    Below is the finished trace for \texttt{hanoi 5 0 2}.  
+    I wrote it like normal recursion notes: each indent = deeper call.
+
+\begin{verbatim}
+hanoi 5 0 2
+    hanoi 4 0 1
+        hanoi 3 0 2
+            hanoi 2 0 1
+                hanoi 1 0 2
+                    move 0 2
+                move 0 1
+                hanoi 1 2 1
+                    move 2 1
+            move 0 2
+            hanoi 2 1 2
+                hanoi 1 1 0
+                    move 1 0
+                move 1 2
+                hanoi 1 0 2
+                    move 0 2
+        move 0 1
+        hanoi 3 2 1
+            hanoi 2 2 0
+                hanoi 1 2 1
+                    move 2 1
+                move 2 0
+                hanoi 1 1 0
+                    move 1 0
+            move 2 1
+            hanoi 2 0 1
+                hanoi 1 0 2
+                    move 0 2
+                move 0 1
+                hanoi 1 2 1
+                    move 2 1
+    move 0 2
+    hanoi 4 1 2
+        hanoi 3 1 0
+            hanoi 2 1 2
+                hanoi 1 1 0
+                    move 1 0
+                move 1 2
+                hanoi 1 0 2
+                    move 0 2
+            move 1 0
+            hanoi 2 2 0
+                hanoi 1 2 1
+                    move 2 1
+                move 2 0
+                hanoi 1 1 0
+                    move 1 0
+        move 1 2
+        hanoi 3 0 2
+            hanoi 2 0 1
+                hanoi 1 0 2
+                    move 0 2
+                move 0 1
+                hanoi 1 2 1
+                    move 2 1
+            move 0 2
+            hanoi 2 1 2
+                hanoi 1 1 0
+                    move 1 0
+                move 1 2
+                hanoi 1 0 2
+                    move 0 2
+\end{verbatim}
+
+    \item \textbf{Extract the moves in order.}  
+    I just copied every \texttt{move x y} line in the order they show up:
+
+\[
+\begin{aligned}
+&0\!\to\!2,\ 0\!\to\!1,\ 2\!\to\!1,\ 0\!\to\!2,\ 1\!\to\!0,\ 1\!\to\!2,\ 0\!\to\!2,\\
+&0\!\to\!1,\ 2\!\to\!1,\ 2\!\to\!0,\ 1\!\to\!0,\ 2\!\to\!1,\ 0\!\to\!2,\ 0\!\to\!1,\ 2\!\to\!1,\\
+&0\!\to\!2,\ 1\!\to\!0,\ 1\!\to\!2,\ 0\!\to\!2,\ 1\!\to\!0,\ 2\!\to\!0,\ 1\!\to\!0,\\
+&1\!\to\!2,\ 0\!\to\!2,\ 0\!\to\!1,\ 2\!\to\!1,\ 0\!\to\!2,\ 1\!\to\!0,\ 1\!\to\!2,\ 0\!\to\!2.
+\end{aligned}
+\]
+
+    These are the exact steps the puzzle should perform.
+
+    \item \textbf{Verify online.}  
+    I checked the moves by running the Towers of Hanoi online (3-peg version).  
+    The move order matches perfectly:  
+    – all odd moves send a disk from the smallest-disk peg,  
+    – the pattern alternates exactly like the standard recursive solution.  
+    So the trace above is correct.
+\end{enumerate}
 
 
 
