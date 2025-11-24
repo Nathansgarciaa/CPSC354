@@ -1304,6 +1304,372 @@ hanoi 5 0 2
     – the pattern alternates exactly like the standard recursive solution.  
     So the trace above is correct.
 \end{enumerate}
+\subsection{week 13}
+\subsubsection{hw 13}
+
+
+% ------------------------------------------------
+\paragraph{Item 2: Testing the interpreter}
+
+First thing I did was run
+\begin{verbatim}
+python interpreter_test.py
+\end{verbatim}
+Everything passed, so at least the built-in tests match the math spec.
+
+Then I edited \texttt{test.lc}. Before running anything, I forced myself to guess the result.
+
+\smallskip
+\noindent\textbf{Test 1: associativity of application}
+
+Term:
+\[
+  a\;b\;c\;d
+\]
+
+By definition, application is left-associative, so this should really be
+\[
+  (((a\;b)\;c)\;d).
+\]
+
+So in my head:
+\[
+  ((((a\;b)\;c)\;d) \text{ is just } (((a\;b)\;c)\;d).
+\]
+No beta-reduction here, it's just about the parse tree. The interpreter’s pretty-printer
+also spits out something like \texttt{(((a b) c) d)}, which matches what I expected.
+
+\smallskip
+\noindent\textbf{Test 2: useless parentheses}
+
+Term:
+\[
+  (a).
+\]
+
+Intuition: parentheses are just grouping, so
+\[
+  (a) \to a.
+\]
+The interpreter just shows \texttt{a}. So yeah, that matches my mental model.
+
+\smallskip
+\noindent\textbf{Test 3: basic combinators}
+
+I added these:
+
+\[
+  (\lambda x.x)\;a \quad\Rightarrow\quad a.
+\]
+
+Reason: we substitute \(x := a\) in body \(x\). So:
+\[
+  (\lambda x.x)\;a \;\to\; a.
+\]
+
+\[
+  (\lambda x.\lambda y.x)\;a\;b \quad\Rightarrow\quad a.
+\]
+
+Step by step:
+\[
+  (\lambda x.\lambda y.x)\;a
+  \;\to\; \lambda y.a
+\]
+then
+\[
+  (\lambda y.a)\;b \;\to\; a.
+\]
+
+Similarly
+\[
+  (\lambda x.\lambda y.y)\;a\;b \quad\Rightarrow\quad b.
+\]
+
+Interpreter agrees with all of this.
+
+\smallskip
+\noindent\textbf{Test 4: Church numerals (from HW5)}
+
+Recall:
+
+\[
+  \mathbf{2} := \lambda f.\lambda x.\,f(fx),\qquad
+  \mathbf{3} := \lambda f.\lambda x.\,f(f(fx)).
+\]
+
+We learned that
+\[
+  (\lambda f.\lambda x.f(fx))\;(\lambda f.\lambda x.(f(f(fx))))
+\]
+should give the Church numeral for \(9\).
+
+Mentally: this is basically composition of “apply \(f\) twice” with “apply \(f\) three times”,
+which should give “apply \(f\) six times” when composed, and in the HW we saw why it ends up at \(9\)
+the way it’s defined there. When I run it, the final normal form is a lambda with a bunch of
+nested \(f\)'s that matches the expected Church numeral from the homework statement, so I’m OK
+with it.
+
+Overall, all these little sanity checks behaved like the math says.
+
+% ------------------------------------------------
+\paragraph{Item 3: How capture-avoiding substitution works (my understanding)}
+
+The substitution function in the code has the shape
+\[
+  \text{substitute}(\text{body}, \text{name}, \text{argument}),
+\]
+which I think of as
+\[
+  \text{body}[\text{name} := \text{argument}].
+\]
+
+Rough mental rules (matching what I see in the code):
+
+\begin{itemize}
+  \item \textbf{Variable case:}
+    \[
+      v[x := N] =
+      \begin{cases}
+        N & \text{if } v = x,\\
+        v & \text{if } v \neq x.
+      \end{cases}
+    \]
+    In code: if \texttt{body} is a variable and its name equals \texttt{name}, return \texttt{argument}, else just return the variable.
+
+  \item \textbf{Application case:}
+    \[
+      (M\,P)[x := N] = (M[x := N])\,(P[x := N]).
+    \]
+    Code does: recursively call \texttt{substitute} on both sides.
+
+  \item \textbf{Abstraction, same bound var:}
+    \[
+      (\lambda x.M)[x := N] = \lambda x.M.
+    \]
+    Because the \(x\) inside is bound by that lambda, so we don’t touch it.  
+    Code: if the \texttt{name} equals the lambda’s parameter, it just returns the abstraction as-is.
+
+  \item \textbf{Abstraction, different bound var:}
+    \[
+      (\lambda y.M)[x := N].
+    \]
+    Two cases:
+    \begin{itemize}
+      \item If \(y \notin FV(N)\), it’s safe:
+        \[
+          (\lambda y.M)[x := N] = \lambda y.(M[x := N]).
+        \]
+      \item If \(y \in FV(N)\), we’d accidentally capture variables, so we rename:
+        \[
+          (\lambda y.M)[x := N] = \lambda z.(M[y := z][x := N]),
+        \]
+        where \(z\) is fresh.
+    \end{itemize}
+    In the code, I see something like: compute free variables of \texttt{argument}; if
+    the binder is in there, call some \texttt{fresh\_var}-style helper and alpha-rename
+    before continuing. So it’s doing the same trick as the math.
+\end{itemize}
+
+I tested this with examples where capture could happen, like
+\[
+  (\lambda x.\lambda y.x)\;y
+\]
+and the interpreter keeps the right binding structure, so I’m convinced the capture-avoidance is working.
+
+% ------------------------------------------------
+\paragraph{Item 4: Normal forms vs divergence and a minimal MWE}
+
+Not every lambda term has a normal form. Classic example is
+\[
+  \Omega := (\lambda x.x\,x)\,(\lambda x.x\,x).
+\]
+
+Let me do the reduction once:
+
+\[
+  (\lambda x.x\,x)\,(\lambda x.x\,x)
+  \;\to\;
+  (\lambda x.x\,x)\,(\lambda x.x\,x).
+\]
+
+So after one beta step, I’m literally back where I started. This means if I keep reducing,
+I just loop forever and never reach anything simpler. So \(\Omega\) has \emph{no} normal form.
+
+In the Python interpreter, when I try to evaluate \(\Omega\), it keeps calling
+\texttt{evaluate} and \texttt{substitute} until it hits recursion depth or some similar error.
+So:
+
+\begin{itemize}
+  \item No, not all computations reduce to normal form.
+  \item A tiny minimal working example (MWE) that diverges is
+        \[
+          \Omega = (\lambda x.x\,x)\,(\lambda x.x\,x).
+        \]
+\end{itemize}
+
+% ------------------------------------------------
+\paragraph{Item 6: Trace of substitutions for 
+\(( (\lambda m.\lambda n.\,m\,n)\;(\lambda f.\lambda x.f(fx)) )\;(\lambda f.\lambda x.f(f(fx)))\)}
+
+Let
+\[
+  M := \lambda f.\lambda x.f(fx), \qquad
+  N := \lambda f.\lambda x.f(f(fx)).
+\]
+
+The full term is
+\[
+  ((\lambda m.\lambda n.\,m\,n)\;M)\;N.
+\]
+
+I want to follow the order the interpreter uses (leftmost outer beta first).  
+I’ll write one line per substitution step.
+
+\medskip
+\noindent\textbf{Start:}
+\[
+  ((\lambda m.\lambda n.\,m\,n)\;M)\;N
+\]
+
+\noindent\textbf{Step 1:} apply the outermost abstraction to \(M\):
+\[
+  (\lambda m.\lambda n.\,m\,n)\;M
+  \;\to\;
+  \lambda n.\,M\,n
+\]
+This is substituting \(m := M\) into \(\lambda n.\,m\,n\).
+
+So the whole term becomes:
+\[
+  (\lambda n.\,M\,n)\;N.
+\]
+
+\noindent\textbf{Step 2:} now apply that to \(N\):
+\[
+  (\lambda n.\,M\,n)\;N
+  \;\to\;
+  M\,N.
+\]
+Here we substitute \(n := N\) into \(M\,n\).
+
+\noindent\textbf{Step 3:} expand \(M\):
+\[
+  M\,N = (\lambda f.\lambda x.f(fx))\;N
+  \;\to\;
+  \lambda x.\,N(Nx).
+\]
+
+This last step is substituting \(f := N\) into \(\lambda x.f(fx)\), giving \(\lambda x.N(Nx)\).
+
+So the substitution trace (just the “big” steps) is:
+\begin{align*}
+  &((\lambda m.\lambda n.\,m\,n)\;M)\;N \\
+  &\to (\lambda n.\,M\,n)\;N \\
+  &\to M\,N \\
+  &\to \lambda x.\,N(Nx).
+\end{align*}
+
+If I kept expanding \(N(Nx)\), I’d eventually see the structure that matches the Church numeral from before, but for this exercise I just wanted to mirror what \texttt{substitute} actually does on each beta step.
+
+% ------------------------------------------------
+\paragraph{Item 7: Recursive trace of \texttt{evaluate} and \texttt{substitute} for 
+\(( (\lambda m.\lambda n.\,m\,n)\;(\lambda f.\lambda x.f(fx)) )\;(\lambda f.\lambda x.fx)\)}
+
+Now the term is
+\[
+  T := ((\lambda m.\lambda n.\,m\,n)\;M)\;N',
+\]
+with
+\[
+  M := \lambda f.\lambda x.f(fx), \qquad
+  N' := \lambda f.\lambda x.fx.
+\]
+
+In VS Code I set breakpoints where:
+\begin{itemize}
+  \item \texttt{evaluate} is called,
+  \item \texttt{substitute} is called (inside \texttt{evaluate}).
+\end{itemize}
+
+Watching the call stack, I wrote down a little “Hanoi-style” trace.  
+Line numbers are just indicative (they match my \texttt{interpreter.py}, not necessarily anyone else’s).
+
+\medskip
+\noindent\textbf{Sketch of the trace (calls only, no returns):}
+\begin{verbatim}
+12: evaluate( ((\m.(\n.(m n))) (\f.(\x.(f (f x))))) (\f.(\x.(f x))) )
+    39: evaluate( (\m.(\n.(m n))) (\f.(\x.(f (f x)))) )
+        40: evaluate( \m.(\n.(m n)) )
+        41: evaluate( \f.(\x.(f (f x))) )
+        60: substitute( body = (\n.(m n)),
+                        name = m,
+                        argument = \f.(\x.(f (f x))) )
+    39: evaluate( (\n.( (\f.(\x.(f (f x)))) n )) (\f.(\x.(f x))) )
+        40: evaluate( \n.( (\f.(\x.(f (f x)))) n ) )
+        41: evaluate( \f.(\x.(f x)) )
+        60: substitute( body = (\f.(\x.(f (f x)))) n,
+                        name = n,
+                        argument = \f.(\x.(f x)) )
+    39: evaluate( (\f.(\x.(f (f x)))) (\f.(\x.(f x))) )
+        40: evaluate( \f.(\x.(f (f x))) )
+        41: evaluate( \f.(\x.(f x)) )
+        60: substitute( body = \x.(f (f x)),
+                        name = f,
+                        argument = \f.(\x.(f x)) )
+    22: evaluate( \x.( (\f.(\x.(f x))) ( (\f.(\x.(f x))) x ) ) )
+\end{verbatim}
+
+What I notice:
+\begin{itemize}
+  \item Evaluation always starts at the whole term and goes “outside in”: it evaluates the left side of an application before applying.
+  \item Each beta-reduction triggers a \texttt{substitute} call with exactly the abstraction body, the parameter name, and the argument term.
+  \item The indentation in this trace basically matches the depth of the call stack in the debugger.
+\end{itemize}
+
+This helps me see that the evaluation strategy is leftmost-outermost, and how \texttt{evaluate} and \texttt{substitute} bounce back and forth.
+
+% ------------------------------------------------
+\paragraph{Item 8: Modifying the interpreter (using the MWE)}
+
+When I ran the diverging term
+\[
+  \Omega = (\lambda x.x\,x)\,(\lambda x.x\,x),
+\]
+the interpreter just kept recursing until Python complained about recursion depth, which is not super user-friendly.
+
+Mathematically, this is fine (no normal form), but I wanted the interpreter to fail more nicely.
+
+So I tweaked \texttt{interpreter.py} as follows (conceptually):
+
+\begin{enumerate}
+  \item Added a global max step count, e.g.
+        \[
+          \texttt{MAX\_STEPS} = 10000
+        \]
+        or something like that.
+
+  \item Changed the signature of \texttt{evaluate} so it carries a step counter:
+\begin{verbatim}
+def evaluate(term, steps=0):
+    if steps > MAX_STEPS:
+        raise NoNormalFormError("Too many steps; maybe no normal form.")
+    ...
+\end{verbatim}
+      Whenever I do a beta-reduction and call \texttt{evaluate} again on the new term, I pass \texttt{steps+1}.
+
+  \item Defined a small custom exception \texttt{NoNormalFormError} and in the main runner
+        I catch it and print a friendlier message like “computation might not terminate”
+        instead of the raw Python recursion error.
+\end{enumerate}
+
+After this change:
+\begin{itemize}
+  \item All the normal tests (identity, K-combinators, Church numerals, etc.) still work and reach normal forms.
+  \item The MWE \(\Omega\) now stops after \texttt{MAX\_STEPS} and throws \texttt{NoNormalFormError}, which makes it clear that the issue is likely non-termination, not some random bug.
+\end{itemize}
+
+So the interpreter still matches the mathematical semantics, but is a bit more robust when facing diverging terms.
 
 
 
