@@ -1,0 +1,10 @@
+# Ignore everything by default
+*
+**/
+
+# Except the files we want to keep
+!.gitignore
+!README.md
+!Report/
+!Report/report.pdf
+!Report/report.tex
