@@ -86,6 +86,19 @@
 
 \section{Introduction}\label{intro}
 
+The report contains all homework assignments which students completed during one semester of CPSC-354 (Programming Languages) at Chapman University. The collection includes all weekly work from Weeks 1 through 13 which includes assignments and proofs and derivations and small programming tasks that demonstrate fundamental concepts of programming languages and formal reasoning.
+
+\paragraph{Brief Overview.}
+\begin{itemize}
+  \item Core topics: abstract rewriting systems, invariants, termination measures, lambda calculus (\(\alpha/\beta\)-reduction, fixed points), Church numerals, and simple interpreters.
+  \item Syntax and parsing: grammar-based derivations and parse trees; operator precedence and the role of parentheses.
+  \item Proof practice: algebraic laws (associativity, commutativity), propositional logic, and Lean-based proofs.
+  \item Algorithms and traces: Euclid's GCD, merge sort measures, and Towers of Hanoi execution with move sequences.
+\end{itemize}
+
+\paragraph{Structure.}
+The ``Week by Week'' section organizes each homework with consistent naming (Week \(n\), HW \(n\)) and concise expositions, including diagrams, equations, or code where appropriate.
+
 \section{Week by Week}\label{homework}
 
 \subsection{Week 1}
@@ -101,7 +114,7 @@ The MU puzzle comes from the book \textit{Gödel, Escher, Bach}. You start with 
 \end{enumerate}
 
 The puzzle is about seeing if you can reach \textbf{MU} by only using these rules. It is not really about the letters themselves, but about how rules control what strings you can or cannot make.
-\subsubsection{HW1}
+\subsubsection{HW 1b - MU Puzzle Analysis}
 
 The MU puzzle comes from the book \textit{Gödel, Escher, Bach}. You start with the string \textbf{MI} and the goal is to turn it into \textbf{MU} by following four rules:
 
@@ -137,7 +150,7 @@ We start with \texttt{MI}, which has $\#I=1$. This is congruent to $1 \pmod 3$. 
 The target \texttt{MU} has $\#I=0$, which is divisible by $3$. Since that is unreachable from \texttt{MI}, the puzzle is unsolvable. As a student, the cool part here is that the solution isn’t about brute-force trying rules—it’s about spotting a hidden invariant (the number of I’s mod 3) that blocks the path completely.
 
 \subsection{Week 2}
-\subsubsection{HW2 - Abstract Rewriting Systems (ARS) Properties}
+\subsubsection{HW 2 - Abstract Rewriting Systems (ARS) Properties}
 
 \paragraph{Problem.}
 Consider the following list of Abstract Rewriting Systems (ARSs).
@@ -439,7 +452,7 @@ This terminates and yields unique normal forms.
 \textit{Specification:} The algorithm computes whether the input contains at least one $a$, ignoring all $b$’s.
 
 \subsection{Week 4}
-\subsubsection{HW4 - Termination}
+\subsubsection{HW 4 - Termination}
 
 For the definition of a \emph{measure function}, see our notes on rewriting and, in particular, on termination.
 
@@ -515,9 +528,9 @@ Define
 
 Since $\phi$ maps each call to a natural number that strictly decreases along every recursive edge and is bounded below, there are no infinite descending chains. By well-founded induction on $\phi$, all recursive calls terminate. \qed
 
-\subsection{HW 5}
+\subsection{Week 5}
 
-\subsubsection{Workout: Step-by-step $\alpha$/$\beta$-reductions}
+\subsubsection{HW 5 - Workout: Step-by-step \texorpdfstring{$\alpha$/$\beta$}{alpha/beta}-reductions}
 
 \noindent\textbf{Problem.} Evaluate
 \[
@@ -559,8 +572,8 @@ Applying iterate-2 \emph{to} iterate-3 yields iterate-9.
 \]
 So the result is the \emph{iterate-9} operator: given $x$ and $y$, it applies $x$ to $y$ nine times.
 
-\subsection{HW 6}
-\subsubsection{Computing \texorpdfstring{$\mathrm{fact}\,3$}{fact 3} via a Fixed Point Combinator}
+\subsection{Week 6}
+\subsubsection{HW 6 - Computing \texorpdfstring{$\mathrm{fact}\,3$}{fact 3} via a Fixed Point Combinator}
 
 We use the computation rules
 \[
@@ -654,7 +667,7 @@ Unwinding:
 
 
 \subsection{Week 7}
-\subsubsection{HW7 - Parse Trees for Arithmetic Expressions}
+\subsubsection{HW 7 - Parse Trees for Arithmetic Expressions}
 
 \textbf{Using the context-free grammar:}
 
@@ -847,8 +860,8 @@ Write out the derivation trees (parse trees) for the following strings:
   \item Parentheses in examples (3) and (4) override default precedence by forcing evaluation order.
 \end{itemize}
 
-\subsection{Week 7}
-\subsubsection{HW 8 Natural Numbers Game}
+\subsection{Week 8}
+\subsubsection{HW 8 - Natural Numbers Game}
 \textbf{Problem: 5}
 
 Prove that
@@ -962,8 +975,8 @@ example : 2 + 2 = 4 := by
     \item Finally, \texttt{rfl} (reflexivity) confirms both sides are equal, completing the proof that \(2 + 2 = 4\).
 \end{itemize}
 
-\subsection{Week9}
-\subsubsection{hw9}
+\subsection{Week 9}
+\subsubsection{HW 9 - Addition Commutativity and Associativity}
 \subsubsection*{Level 5: \texttt{add\_right\_comm}}
 
 \textbf{Theorem.} For all natural numbers $a, b, c$, we have
@@ -1038,8 +1051,8 @@ theorem add_right_comm (a b c : ℕ) : (a + b) + c = (a + c) + b := by
   rfl
 \end{verbatim}
 
-\subsection{week 10}
-\subsubsection{hw10}
+\subsection{Week 10}
+\subsubsection{HW 10 - Logic and Conjunction}
 \textbf{Problem: 6} Prove that if $C \land D \to S$, then $C \to D \to S$.
 
 \[
@@ -1105,7 +1118,7 @@ exact fun r => ⟨fun _ => r, fun _ => r⟩
 \end{verbatim}
 
 \subsection{Week 11}
-\subsubsection{hw11}
+\subsubsection{HW 11 - Negation and Implication}
 \subsubsection*{Level 9 — Implies a Negation}
 
 \textbf{Given:} 
@@ -1210,8 +1223,8 @@ h : \neg (B \to C)
 \texttt{exact fun b => h (fun \_ => b)}
 \]
 
-\subsection{week 12}
-\subsubsection{Homework: Towers of Hanoi Execution Notes}
+\subsection{Week 12}
+\subsubsection{HW 12 - Towers of Hanoi Execution Notes}
 
 \begin{enumerate}
     \item \textbf{Complete the execution (fill in the dots).}  
@@ -1304,8 +1317,8 @@ hanoi 5 0 2
     – the pattern alternates exactly like the standard recursive solution.  
     So the trace above is correct.
 \end{enumerate}
-\subsection{week 13}
-\subsubsection{hw 13}
+\subsection{Week 13}
+\subsubsection{HW 13 - Lambda Calculus Interpreter}
 
 
 % ------------------------------------------------
@@ -1676,12 +1689,70 @@ So the interpreter still matches the mathematical semantics, but is a bit more r
 
 \section{Essay}
 
+\subsection{Synthesis Essay}
+Programming languages connect formal reasoning to implementation techniques and disciplined abstraction methods. The fundamental question these methods attempt to answer is how to verify that a program executes according to our intended specifications. I studied this research question during the current semester by using abstract rewriting systems and termination arguments and lambda calculus and grammars and algebraic laws and mechanized proof systems. The common element between these approaches involves learning to establish exact property definitions and using organized mathematical rules for computation modeling and proof-based verification of system behavior. The resulting body of work represents more than a set of programming methods because it establishes a complete system of mental processing which enables developers to understand programming operations at their fundamental level.
+
+The path started with the MU puzzle and Abstract Rewriting Systems which taught me to identify fundamental rules that determine what can be achieved and what cannot. The MU puzzle starts with the string \texttt{MI} which requires basic letter transformations to achieve the final result of \texttt{MU}. The system lacks any available rule which would enable users to access the \texttt{MU} feature. The insight emerges from monitoring the number of \texttt{I} characters which remains constant when performing permitted operations. The system starts with one \texttt{I} character which equals 1 modulo 3 but needs zero \texttt{I} characters to achieve \texttt{MU} which makes the goal impossible to achieve mathematically. The discovery that a single numerical value could verify what brute-force enumeration failed to do became a transformative experience for me. Abstract Rewriting Systems deepened this intuition. The Small graphs of rewrite relations presented states as nodes which connected through edges that showed transition paths between them. A self-loop (a state that rewrites to itself) prevents termination; branching paths without a join point destroy confluence; unique normal forms require both termination and the ability for all paths to reconverge. The string-rewrite exercises demonstrated that the survival or disappearance of symbols together with their ordering requirements depends on system behavior invariants which determine the system's operational structure.
+The established base enabled me to understand that termination functions as a specific design approach rather than an enigmatic system property. The Measure functions serve as the fundamental solution because we can assign natural numbers to states which decrease by at least one when the system makes an allowed transition. The system will terminate because natural numbers cannot form endless descending sequences. The greatest common divisor computation through Euclid's algorithm ends because the divisor value decreases during each step of the process. The merge sort algorithm reaches its termination point because its subproblem sizes follow a strictly decreasing pattern. The solution follows a standard procedure which involves two steps: determine which value decreases in size and confirm it remains above zero before completing the proof. The practice of asking ``what decreases?'' has become central to my thinking. I naturally ask three questions when I think about evaluators or recursive functions because I need to understand the measurement process and its termination point and the point at which the recursive process ends. Language interpreters can apply this discipline through two methods: they can either count reduction steps or select an appropriate reduction approach like leftmost-outermost to achieve predictable results from non-terminating computations. The interpreter will display divergence instead of becoming stuck when the program $\Omega = (\lambda x. x\,x)(\lambda x. x\,x)$ enters an infinite loop.
+
+The relationship between formal syntax and computational meaning became clear through the development of lambda calculus. The process of $\alpha$-renaming helped me avoid variable capture while $\beta$-reduction allowed me to apply functions to their arguments which taught me that computation involves following established rewriting rules. The Church numerals proved that integers exist as constructed elements because they can be expressed through functions: the number 2 in Church numerals functions as $\lambda f.\lambda x.f(fx)$ which represents a function that performs its argument operation twice. The Church numeral for 2 when combined with the Church numeral for 3 results in the numeral for 9 through composition which demonstrates how basic substitution and rewriting operations generate complex system behavior. The fixed-point combinator $\texttt{fix}\,F \to F(\texttt{fix}\,F)$ establishes recursion through its definition which does not require any pre-existing loop structure. The evaluation process of factorial 3 through \texttt{fix} demonstrates how conditional statements and arithmetic operations and substitution mechanisms work together to generate a final value. The process requires complete rewriting because execution does not produce any "magic" results which only involve rule-based operations. The discovery that language features including recursion and higher-order functions and lazy evaluation can be expressed through pure terms with exact operational behavior brings freedom to developers. The process of mastering a language requires knowledge of its rewrite rules instead of learning its individual words.
+
+The process of converting surface notation into structured meaning required both grammar design and parsing systems. The process of creating parse trees for arithmetic expressions demonstrated how grammar rules enforce both operator precedence and association rules. The grammar achieves nonterminal separation through three distinct nonterminals which assign Exp to handle addition operations and Exp1 to handle multiplication operations and Exp2 to handle atomic elements. The grammar implements multiplication precedence above addition through its tree structure instead of depending on conventional rules. The tree structure remains unchanged through parentheses because they create new arrangements which replace all default settings. The evaluation process uses tree structure instead of the original string structure which makes grammar design serve a purpose beyond appearance because it affects meaning. The production of a single tree by an unambiguous grammar enables developers to create simpler interpreters which also become more dependable through their analysis. The information seemed like a minor point at the beginning of the semester but I understood its essential nature when the semester ended. The process of language design cannot exist without parsing and parsing requires meaning to function properly.
+
+The Lean system enabled mechanized proof verification which united all these different mathematical approaches. The process of demonstrating addition properties through explicit reasoning involved three steps which included establishing hypotheses and creating the proof term that followed function construction and using rewrite lemmas (\texttt{add\_zero}, \texttt{add\_succ}, \texttt{add\_assoc}, \texttt{add\_comm}) to perform the algebraic transformations. The process of solving logic problems which involved proving different types of statements showed that proof construction shares a direct relationship with program development. The proof of $C \to D \to S$ requires a function which uses the given proof of $(C \land D) \to S$ to construct a pair from $c$ and $d$. The relationship between specifications and implementations and between logical systems and programming code exists as a real-world phenomenon. The process of formal verification should occur as an essential part of design work instead of serving as an independent verification step that happens after design completion.
+
+The development of these strands resulted in creating a basic lambda-calculus interpreter. The system needed three essential components for its implementation which included capture-avoiding substitution (applying lessons in $\alpha$-equivalence) and a reduction strategy based on leftmost-outermost evaluation and step limits to manage divergent behavior. The interpreter demonstrates all essential elements from the course because it uses grammars to control parsing and substitution to enforce semantic rules and evaluation control through measures and strategies and termination awareness to stop infinite loops. The implementation process turned theoretical ideas into physical objects which students could touch and study. The rule of capture avoidance evolved from a set of instructions into a challenge which needed resolution. Evaluation strategies evolved from being mere notation systems into actual design elements which produce measurable effects. The interpreter demonstrated that lambda terms contain two distinct categories of expressions because some expressions lack normal forms and their programs fail to reach termination. The system becomes capable of generating useful diagnostic information through its implementation of step limits which monitor system operations. The knowledge of theoretical foundations together with their restricted applications appears to be fundamental.
+
+Programming languages require developers to explain program behavior and to verify that their code functions properly. The system reveals both its accessible states and its permanently inaccessible states through invariants. The termination process receives support from valid measurement methods which also establish specific expense limits. Grammars determine how language creates meaning while maintaining its organizational framework. Fixed-point combinators reveal the fundamental nature of recursive operations. Proof assistants enable users to execute their reasoning while maintaining complete auditability. The combination of these concepts into a unified perspective which uses systematic reasoning and proof artifacts that others can verify and semantic-based language design creates a new way of understanding code. The process of programming shifts from attempting different solutions to creating programs through logical planning. The development of this perspective would lead to better understanding of both theoretical concepts and engineering applications. A person can write ships code with assurance when they grasp both the operational success of their code and the underlying reasons for its functionality. The GCD loop from Euclid reduces the remaining value while merge sort reduces the dimensions of its subproblems. The recipe requires selecting a reliable measurement method which removes each step completely. I now evaluate evaluators and recursion by determining which values decrease and identifying the base case location. The behavior of interpreters becomes more understandable through the use of step bound or leftmost-outermost strategy when complete normalization proves unattainable (e.g. the diverging term $\Omega$).
+The process of applying $\alpha$/$\beta$-reductions and Church numerals and fixed-point combinators established a connection between the structural elements of syntax and their corresponding semantic meanings. The combination of iterate-2 with iterate-3 produces iterate-9 which demonstrates how composition creates structural elements. The fixed-point rule (\texttt{fix}\,F $\to$ F(\texttt{fix}\,F)) provides recursion with its fundamental meaning through a process that does not require loops in the programming language. The evaluation process of \texttt{fact}\,3 demonstrates how conditionals and substitution work together to generate values which confirms that numerous programming elements can be expressed as pure terms that follow specific rules.
+
+The process of creating parse trees for arithmetic expressions demonstrated how grammars use their rules to enforce both operator precedence and how operators should associate with each other. The separation of nonterminals (Exp, Exp1, Exp2) establishes multiplication as the tighter operator than addition while parentheses function to modify tree structures for default override. A grammar which is well designed produces trees that have no ambiguity which results in simpler and more accurate interpreters.
+
+The process of proving addition associativity and commutativity and right-commutativity in Lean required me to develop my explicit reasoning abilities. The pattern follows a consistent sequence which starts with state hypothesis formation then follows function or contradiction construction and ends with rewrite lemma application of \texttt{add\_zero} and \texttt{add\_succ} and \texttt{add\_assoc} and \texttt{add\_comm}. The logic exercises which included implication and conjunction and negation and double negation operations demonstrated that building functions through programming follows the same process as building proofs in mathematics thus strengthening the connection between design requirements and software code.
+
+The interpreter for lambda calculus operated as a small program which combined capture-avoiding substitution with a defined reduction strategy and step limits to manage infinite loops. The program implements all essential course concepts which include grammar-based parsing and semantic evaluation through substitution and evaluation strategy selection and program termination detection. The interpreter maintains predictable behavior when terms fail to match normal forms while providing explanations about the reasons for this behavior.
+
+Programming languages are about explaining why programs behave as they do and how to make that behavior trustworthy. Invariants clarify reachability; well-founded measures justify termination; grammars shape meaning; fixed points express recursion; and proof assistants make reasoning executable. Together, these perspectives improve both theoretical understanding and practical implementation skills.
+
 \section{Evidence of Participation}
+
+\subsection{Discussion Post 1: Code Security and Quality in Practice}
+\textbf{Source:} \href{https://newsletter.pragmaticengineer.com/p/code-security}{The Pragmatic Engineer: Code Security with Johannes Dahse}
+
+The Pragmatic Engineer features Johannes Dahse (Sonar VP of Code Security) explaining how actual security vulnerabilities originate and what software engineers must do to prevent them. The core insight is that code quality directly affects security: poorly written code becomes harder to review and maintain, extending the window in which vulnerabilities exist. Modern development relies on external libraries, making Software Composition Analysis (SCA) and CVE databases essential security tools. The discussion gains urgency with AI-assisted coding, where generated code moves faster than human review can handle, creating new verification challenges. Three emerging risks emerge: degraded code quality, missed vulnerability detection, and prompt injection attacks in LLM-based systems. The episode underscores that solid engineering practices and code comprehension remain vital for real-world security, even as developers gain access to powerful AI tools.
+
+\subsection{Discussion Post 2: Transformer Limitations and Alternative Reasoning Architectures}
+\textbf{Source:} \href{https://www.youtube.com/watch?v=DtePicx_kFY}{Sakana AI: Rethinking Transformers with Llion Jones and Luke Darlow}
+
+Llion Jones and Luke Darlow from Sakana AI argue that the Transformer architecture—powering ChatGPT and most modern AI—may actually limit progress toward genuine intelligent reasoning. Jones, a co-author of the original ``Attention Is All You Need'' paper, describes ``inventor's remorse,'' noting how Transformer success has led to ``success capture,'' where researchers optimize incrementally rather than explore fundamentally new ideas. They highlight the ``spiral problem'': neural networks stitch together line segments to approximate spirals, mimicking understanding without grasping the underlying concept—much like how current AI generates plausible answers without genuine thinking. As an alternative, they introduce the Continuous Thought Machine (CTM), a biology-inspired model enabling step-by-step reasoning (like walking a maze rather than guessing the exit). CTM emphasizes thinking time, reflection, and backtracking—capabilities largely absent from today's language models but essential for true reasoning.
+
+\subsection{Discussion Post 3: AI as Predictive Tool for Large Codebases}
+\textbf{Source:} \href{https://stackoverflow.blog/2025/12/09/ai-is-a-crystal-ball-into-your-codebase/}{Stack Overflow Podcast: Macroscope and AI Code Transparency}
+
+Kayvon Beykpour explains how Macroscope positions AI as a predictive lens into vast codebases, offering insights through enhanced transparency, review processes, and development tracking. The real challenge in large engineering organizations is not coding but understanding the work of thousands of engineers across thousands of files. Macroscope uses AI-driven summaries based on Abstract Syntax Tree (AST) data, performing contextual code change analysis instead of relying on diffs alone. This enables more effective code reviews and gives leadership reliable reports without extra meetings or documentation overhead. The key insight: AI works best as an intelligence layer that helps teams reason about complex systems, yet human judgment and decision-making remain non-negotiable.
+
+\subsection{Discussion Post 4: Ethics in AI, Not Ethics of AI}
+\textbf{Source:} \href{https://www.youtube.com/watch?v=kEf_MTqeXWg}{David Danks: Ethics in AI, Not Ethics of AI}
+
+David Danks reframes AI ethics by arguing that most AI-related ethical issues stem not from the systems themselves but from human decisions about development and deployment. Rather than assigning moral agency to AI, focus should be on the social contexts, institutional frameworks, and decision-making processes that shape system behavior. Bias, unfairness, and harm arise from choices made during data collection, modeling, and deployment—making developers, organizations, and policymakers responsible. This framing shifts discourse from vague fears of ``evil AI'' to concrete, actionable interventions. Danks proposes a functional approach: embed ethical analysis within AI development rather than treating ethics as a separate discipline, making responsibility tangible and outcomes measurable.
+
+\subsection{Discussion Post 5: Beyond Vibe Coding—The 70\% Problem}
+\textbf{Source:} \href{https://newsletter.pragmaticengineer.com/p/beyond-vibe-coding-with-addy-osmani}{The Pragmatic Engineer: Beyond Vibe Coding with Addy Osmani}
+
+The Pragmatic Engineer presents an episode where Addy Osmani explains how artificial intelligence transforms software development yet he warns developers to avoid depending too heavily on "vibe coding" which involves using AI-generated code without proper comprehension. He explains the 70 percent problem which shows that AI tools excel at speeding up initial development work yet they fail to handle the crucial last 30 percent which decides how well the code will be maintained and how correct it will be. Osmani explains that human experts need to review and test generated code through reasoning because complex systems and changing requirements make automated code generation insufficient. He presents spec-driven development and testing as two methods which enable developers to maintain control over their work while AI tools deliver fast results. The show presents AI as an effective tool which helps developers instead of taking their place while maintaining that software engineers need to develop their critical thinking abilities and deep system comprehension skills.
 
 \section{Conclusion}\label{conclusion}
 
-\begin{thebibliography}{99}
-\bibitem[BLA]{bla} Author, \href{https://en.wikipedia.org/wiki/LaTeX}{Title}, Publisher, Year.
-\end{thebibliography}
+Programming languages required students to learn structural thinking through proof-based methods and performance tradeoff analysis instead of focusing on syntax memorization. A 20-year-old developer who wants to create software which functions properly in actual use learned that system operation does not guarantee either proper functionality or future system stability. The course taught me to move beyond basic code understanding toward understanding program behavior mechanisms and learning how to defend this behavior through mathematical proof which leads to effective communication of these arguments.
+
+PL operates as the base system which maintains all other components through its honest operation. Rewriting systems and invariants appear to be theoretical concepts which directly apply to distributed system state transition analysis and compiler optimization work. The process of creating termination proofs through measure analysis helped us determine if our work would complete its tasks or continue to consume cloud resources without stopping. The initial impression of Lambda calculus and fixed points as specialized concepts revealed their fundamental role in supporting recursion and higher-order functions and functional-reactive UI patterns. Every API specification and configuration file and domain-specific language which engineers develop needs grammars and parsing as their fundamental structural components. The Lean proof system operated similarly to writing tests but required absolute precision because the system would only accept proofs when all steps were fully detailed.
+
+The most valuable information for me emerged when the approach changed from requiring proof through homework to establishing proof which would lead to trust. The MU puzzle demonstrated its mod-3 invariant through a simple yet effective example which showed that a single line of understanding surpasses extensive brute-force calculations. The process of creating a lambda-calculus interpreter helped me understand how substitution and capture avoidance and evaluation strategies work in practice. The interpreter showed me that programming language features exist as actual decisions which developers must make. The Lean system demonstrated that proofs function as engineered artifacts which surpass their traditional role as handwritten notes because properly established lemmas become reusable library functions.
+
+The industry vibe accepts this approach because software development today involves working with services and schemas and specs which constantly change. A PL toolkit enables you to create DSLs with defined meaning and perform termination and resource usage analysis and establish essential system properties for large-scale dependable systems. The framework helps developers determine which programming techniques to use between static types and formal specs and property-based tests and end-to-end checks.
+
+I would introduce additional connections between theoretical concepts and practical applications if I had the opportunity to modify the course structure. The examples demonstrate how to use tie rewriting and confluence to develop systems and CRDTs and how to display termination indicators for asynchronous job processing pipelines and how to link lambda-calculus problems with a minimal typed interpreter for type safety education and how to use Lean to verify a small API contract before creating tests from it. A short module about performance and complexity would work well with termination because it would answer the question of when the program will stop running. but “will it stop before my laptop fans take off?” The proof/code lab would operate as a collaborative environment which duplicates actual engineering work by having students work in pairs to create proofs and code at the same time while they need to share their invariants through design documentation.
+
+The main point: PL serves as the mental training facility which software engineers need to develop their skills. The training process teaches students to identify problem structures and establish rules while developing their ability to support their arguments. The approach he uses represents the practical nature of Gen Z because he delivers results while understanding their operational logic and maintaining proof of their effectiveness during critical situations.
 
 \end{document}
